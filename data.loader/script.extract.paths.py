@@ -1,21 +1,54 @@
 import os
 import csv
 
-baseDirectory = 'C:/'
-# We need an array for the directories
-directories = []
+# Let's create a function that:
+#   accepts the following parameters:
+#       a base directory string
+#       a recursion level to say how deep we can search through the directory structure
+#   runs through the base directory and generates an list of directories held within
+#   passes back a list once complete
 
-# Grab a copy of the full paths of the files and directories to process
-filesOrDirectories = os.listdir(baseDirectory)
-filesOrDirectoriesPaths = map(lambda name: os.path.join(baseDirectory, name), filesOrDirectories)
+#Let's define a new class to store our directory objects
+class directory:
+    def __init__(self, directoryPath, accessible):
+        self.directoryPath = directoryPath
+        self.accessible = accessible
 
-# For each object, only store it if it's a directory
-for file in filesOrDirectoriesPaths:
-    if os.path.isdir(file): directories.append(file)
+def getDirectories(baseDirectory, recursionLevel):
+    """
+    This function generates a list of directories.
+    It also returns some useful information about each directory.
+    """
 
-# Output the list of directories to a csv for processing
+    # We need a list for the directories
+    directories = []
+
+    # We also need to keep in mind how deep down the rabbit hole we are allowed to go
+    recursionLevel -= 1
+
+    # For each object, only store it if it's a directory
+    for entry in os.scandir(baseDirectory):
+        if entry.is_dir():
+            # If we've found a directory, store it and assume it's accessible for now
+            directories.append(directory(entry.path, 'accessible'))
+            # Try to open the directory if we're not at the end of our recursion yet
+            if recursionLevel > 0:
+                try:
+                    directories = directories + getDirectories(entry.path, recursionLevel)
+                except PermissionError as e:
+                    # If we can't gain access, store that fact
+                    directories[-1].accessible = 'inaccessible'
+            else:
+                # If we never try accessing, let's store that fact too because it could be important
+                directories[-1].accessible = 'untested'
+
+    return directories
+
+# Output a list of directories to a csv for processing
+directories = getDirectories('C:/', 2)
+
 with open('C:/data/data.list.directories.csv', 'w', newline= '') as f:
     write = csv.writer(f)
-    write.writerow(['Directory'])
-    for item in directories:
-        write.writerow([item])
+    write.writerow(['directoryPath','accessible'])
+    for i in directories:
+        write.writerow([i.directoryPath, i.accessible])
