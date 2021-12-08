@@ -11,8 +11,8 @@
   DTS:LocaleID="2057"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="7"
-  DTS:VersionGUID="{16A81FB4-F4F6-4DF0-A6BB-701359D4DD16}">
+  DTS:VersionBuild="25"
+  DTS:VersionGUID="{AD070157-3AD3-47B3-8751-3E507B31920B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -40,7 +40,7 @@
               DTS:DataType="130"
               DTS:TextQualified="True"
               DTS:ObjectName="directoryPath"
-              DTS:DTSID="{C0546133-E936-45D8-8BA8-65A82C59991C}"
+              DTS:DTSID="{B13FCE9B-AAA5-4D71-B6E0-48C112B34E9B}"
               DTS:CreationName="" />
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -48,8 +48,8 @@
               DTS:MaximumWidth="50"
               DTS:DataType="130"
               DTS:TextQualified="True"
-              DTS:ObjectName="accessible"
-              DTS:DTSID="{9DE63AFC-AF85-4AB0-802A-8E6EE834288E}"
+              DTS:ObjectName="accessibility"
+              DTS:DTSID="{5B7784D9-3ABC-43B1-8A08-62E00A459F41}"
               DTS:CreationName="" />
           </DTS:FlatFileColumns>
         </DTS:ConnectionManager>
@@ -138,14 +138,14 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessible]"
+                      refId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessibility]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].ExternalColumns[accessible]"
+                      externalMetadataColumnId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].ExternalColumns[accessibility]"
                       length="50"
-                      lineageId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessible]"
-                      name="accessible"
+                      lineageId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessibility]"
+                      name="accessibility"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -167,10 +167,10 @@
                       length="1000"
                       name="directoryPath" />
                     <externalMetadataColumn
-                      refId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].ExternalColumns[accessible]"
+                      refId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].ExternalColumns[accessibility]"
                       dataType="wstr"
                       length="50"
-                      name="accessible" />
+                      name="accessibility" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -216,23 +216,23 @@
                   name="Conditional Split Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\data_directories_output\data_directories_tested.Inputs[Conditional Split Input].Columns[accessible]"
+                      refId="Package\data_directories_output\data_directories_tested.Inputs[Conditional Split Input].Columns[accessibility]"
                       cachedDataType="wstr"
                       cachedLength="50"
-                      cachedName="accessible"
-                      lineageId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessible]" />
+                      cachedName="accessibility"
+                      lineageId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessibility]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\data_directories_output\data_directories_tested.Outputs[Case 1]"
+                  refId="Package\data_directories_output\data_directories_tested.Outputs[directoryTested]"
                   description="Output 1 of the Conditional Split Transformation"
                   errorOrTruncationOperation="Computation"
                   errorRowDisposition="FailComponent"
                   exclusionGroup="1"
-                  name="Case 1"
+                  name="directoryTested"
                   synchronousInputId="Package\data_directories_output\data_directories_tested.Inputs[Conditional Split Input]"
                   truncationRowDisposition="FailComponent">
                   <properties>
@@ -240,13 +240,13 @@
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
-                      name="Expression">#{Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessible]} != "untested"</property>
+                      name="Expression">#{Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessibility]} != "untested"</property>
                     <property
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the friendly version of the expression. This expression version uses column names."
                       expressionType="Notify"
-                      name="FriendlyExpression">accessible != "untested"</property>
+                      name="FriendlyExpression">accessibility != "untested"</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
@@ -255,10 +255,10 @@
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\data_directories_output\data_directories_tested.Outputs[directoryTested]"
+                  refId="Package\data_directories_output\data_directories_tested.Outputs[directoryUntested]"
                   description="Default Output of the Conditional Split Transformation"
                   exclusionGroup="1"
-                  name="directoryTested"
+                  name="directoryUntested"
                   synchronousInputId="Package\data_directories_output\data_directories_tested.Inputs[Conditional Split Input]">
                   <properties>
                     <property
@@ -298,7 +298,8 @@
               contactInfo="Excel Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
               description="Excel Destination"
               name="data_directories_tested_xlsx"
-              usesDispositions="true">
+              usesDispositions="true"
+              validateExternalMetadata="False">
               <properties>
                 <property
                   dataType="System.Int32"
@@ -307,7 +308,7 @@
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">directories$</property>
+                  name="OpenRowset">data_list_directories_tested_xl$</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -363,25 +364,25 @@
                       externalMetadataColumnId="Package\data_directories_output\data_directories_tested_xlsx.Inputs[Excel Destination Input].ExternalColumns[directoryPath]"
                       lineageId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[directoryPath]" />
                     <inputColumn
-                      refId="Package\data_directories_output\data_directories_tested_xlsx.Inputs[Excel Destination Input].Columns[accessible]"
+                      refId="Package\data_directories_output\data_directories_tested_xlsx.Inputs[Excel Destination Input].Columns[accessibility]"
                       cachedDataType="wstr"
                       cachedLength="50"
-                      cachedName="accessible"
-                      externalMetadataColumnId="Package\data_directories_output\data_directories_tested_xlsx.Inputs[Excel Destination Input].ExternalColumns[accessible]"
-                      lineageId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessible]" />
+                      cachedName="accessibility"
+                      externalMetadataColumnId="Package\data_directories_output\data_directories_tested_xlsx.Inputs[Excel Destination Input].ExternalColumns[accessibility]"
+                      lineageId="Package\data_directories_output\data_directories_csv.Outputs[Flat File Source Output].Columns[accessibility]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
                       refId="Package\data_directories_output\data_directories_tested_xlsx.Inputs[Excel Destination Input].ExternalColumns[directoryPath]"
                       dataType="wstr"
-                      length="255"
+                      length="1000"
                       name="directoryPath" />
                     <externalMetadataColumn
-                      refId="Package\data_directories_output\data_directories_tested_xlsx.Inputs[Excel Destination Input].ExternalColumns[accessible]"
+                      refId="Package\data_directories_output\data_directories_tested_xlsx.Inputs[Excel Destination Input].ExternalColumns[accessibility]"
                       dataType="wstr"
-                      length="255"
-                      name="accessible" />
+                      length="50"
+                      name="accessibility" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -445,6 +446,42 @@
           Arguments="C:\repos\data.loader\data.loader\script.extract.paths.py" />
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\sql_create_table_data_list_directories_xl"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Create table for data.list.directories.tested.xlsx"
+      DTS:DTSID="{4DA188F5-7622-4505-9515-22ADABE71273}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="sql_create_table_data_list_directories_xl"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D9EAEE2F-23D4-41DF-B5F3-43DB3DC8EEAE}"
+          SQLTask:SqlStatementSource="CREATE TABLE `data_list_directories_tested_xl` (&#xA;    `directoryPath` memo,&#xA;    `accessibility` nvarchar(50)&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\sql_drop_table_data_list_directories_xl"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9CBA0C88-8C23-457F-A6E7-4B7D2BB55B3C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:ForceExecutionResult="0"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="2"
+      DTS:ObjectName="sql_drop_table_data_list_directories_xl"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D9EAEE2F-23D4-41DF-B5F3-43DB3DC8EEAE}"
+          SQLTask:SqlStatementSource="drop table `data_list_directories_tested_xl`" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -455,6 +492,23 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
       DTS:To="Package\data_directories_output" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{E5F3F32B-33DF-4E83-8D9B-7FFF03A23463}"
+      DTS:From="Package\sql_drop_table_data_list_directories_xl"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\sql_create_table_data_list_directories_xl"
+      DTS:Value="2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{8897C266-64C8-4023-950C-EF75C1AD3E21}"
+      DTS:From="Package\sql_create_table_data_list_directories_xl"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\script_extract_paths_py" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -467,18 +521,72 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="194,42"
           Id="Package\data_directories_output"
-          TopLeft="6.00000000000001,107.5" />
+          TopLeft="53.0000000000001,311.5" />
         <NodeLayout
           Size="195,42"
           Id="Package\script_extract_paths_py"
-          TopLeft="5.50000000000001,5.5" />
+          TopLeft="52.5,209.5" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="103,47.5">
+          TopLeft="150,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="278,42"
+          Id="Package\sql_create_table_data_list_directories_xl"
+          TopLeft="5.50000000000003,107.5" />
+        <NodeLayout
+          Size="269,42"
+          Id="Package\sql_drop_table_data_list_directories_xl"
+          TopLeft="10,5.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="150,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-25.304453125,20.4453125,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="150,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"

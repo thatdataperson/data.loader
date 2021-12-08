@@ -10,9 +10,9 @@ import csv
 
 #Let's define a new class to store our directory objects
 class directory:
-    def __init__(self, directoryPath, accessible):
+    def __init__(self, directoryPath, accessibility):
         self.directoryPath = directoryPath
-        self.accessible = accessible
+        self.accessibility = accessibility
 
 def getDirectories(baseDirectory, recursionLevel):
     """
@@ -29,12 +29,14 @@ def getDirectories(baseDirectory, recursionLevel):
     # For each object, only store it if it's a directory
     for entry in os.scandir(baseDirectory):
         if entry.is_dir():
+            # Replace the directory path backslash with a forward slash
+            directoryPath = entry.path.replace('\\', '/')
             # If we've found a directory, store it and assume it's accessible for now
-            directories.append(directory(entry.path, 'accessible'))
+            directories.append(directory(directoryPath, 'accessible'))
             # Try to open the directory if we're not at the end of our recursion yet
             if recursionLevel > 0:
                 try:
-                    directories = directories + getDirectories(entry.path, recursionLevel)
+                    directories = directories + getDirectories(directoryPath, recursionLevel)
                 except PermissionError as e:
                     # If we can't gain access, store that fact
                     directories[-1].accessible = 'inaccessible'
@@ -49,6 +51,6 @@ directories = getDirectories('C:/', 2)
 
 with open('C:/data/data.list.directories.csv', 'w', newline= '') as f:
     write = csv.writer(f)
-    write.writerow(['directoryPath','accessible'])
+    write.writerow(['directoryPath','accessibility'])
     for i in directories:
-        write.writerow([i.directoryPath, i.accessible])
+        write.writerow([i.directoryPath, i.accessibility])
